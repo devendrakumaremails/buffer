@@ -78,7 +78,7 @@ class Buffer {
 
 int main() {
   Buffer<int, 5> buffer;
-  int command = 1, num = 0;
+  int command = -1, num = 0;
 
   while (command) {
     switch (command) {
@@ -96,7 +96,8 @@ int main() {
       }
       default: {
         std::cout << "1: put data into buffer\n"
-                  << "2: get data from buffer\n";
+                  << "2: get data from buffer\n"
+                  << "0: exit\n";
         break;
       }
     }
