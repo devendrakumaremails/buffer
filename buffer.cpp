@@ -1,9 +1,7 @@
 /*
 Buffer for single thread.
 */
-#include <stdio.h>
 #include <iostream>
-#include <utility>
 #include <vector>
 
 template <typename T, unsigned int N>
@@ -55,16 +53,20 @@ class Buffer
     }
     bool Get(T &output_data_variable)
     {
+      bool success = true;
       if (IsEmpty())
       {
-        return false;
+        success = false;
       }
-      output_data_variable = storage_[get_index_];
-      get_index_ = (++get_index_) % N;
-      empty_ = get_index_ == put_index_;
-      full_ = false;
+      else
+      {
+        output_data_variable = storage_[get_index_];
+        get_index_ = (++get_index_) % N;
+        empty_ = get_index_ == put_index_;
+        full_ = false;
+      }
 
-      return true;
+      return success;
     }
     bool IsEmpty() const 
     {
@@ -93,7 +95,8 @@ class Buffer
     }
 };
 
-int main() {
+int main()
+{
   Buffer<int, 5> buffer;
   int command = -1, num = 0;
 
@@ -123,8 +126,7 @@ int main() {
         else
         {
           std::cout << "Buffer is Empty!\n";
-        }
-        
+        } 
         break;
       }
       default:
